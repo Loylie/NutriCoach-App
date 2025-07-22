@@ -1,0 +1,59 @@
+[build]
+  # Build command voor de React frontend
+  command = "cd frontend && npm run build"
+  
+  # Directory waar de gebouwde bestanden staan
+  publish = "frontend/dist"
+  
+  # Netlify Functions directory
+  functions = "netlify/functions"
+
+[build.environment]
+  # Node.js versie
+  NODE_VERSION = "20"
+
+# Redirects voor Single Page Application (SPA)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  conditions = {Role = ["admin", "user"]}
+
+# API routes naar Netlify Functions
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# Environment variables (deze worden later ingesteld in Netlify dashboard)
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
+
+# Headers voor beveiliging
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Headers voor API endpoints
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+
