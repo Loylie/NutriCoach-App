@@ -1,47 +1,22 @@
 [build]
-  # Build command voor de React frontend
-  command = "cd frontend && npm install --legacy-peer-deps --production=false && npm run build"
-
-  # Directory waar de gebouwde bestanden staan
+  command = "cd frontend && npm ci --legacy-peer-deps --production=false && npm run build"
   publish = "frontend/dist"
-  
-  # Netlify Functions directory
   functions = "netlify/functions"
 
 [build.environment]
-  # Node.js versie
   NODE_VERSION = "20"
   NPM_FLAGS = "--legacy-peer-deps"
 
-# Redirects voor Single Page Application (SPA)
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-  conditions = {Role = ["admin", "user"]}
 
-# API routes naar Netlify Functions
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
 
-# Environment variables (deze worden later ingesteld in Netlify dashboard)
-[build.processing]
-  skip_processing = false
-
-[build.processing.css]
-  bundle = true
-  minify = true
-
-[build.processing.js]
-  bundle = true
-  minify = true
-
-[build.processing.html]
-  pretty_urls = true
-
-# Headers voor beveiliging
 [[headers]]
   for = "/*"
   [headers.values]
@@ -50,7 +25,6 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
-# Headers voor API endpoints
 [[headers]]
   for = "/api/*"
   [headers.values]
