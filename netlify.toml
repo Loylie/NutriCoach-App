@@ -1,7 +1,7 @@
 [build]
   # Build command voor de React frontend
-  command ="cd frontend && npm install --legacy-peer-deps --production=false && npm run build"
-"
+  command = "cd frontend && npm install --legacy-peer-deps --production=false && npm run build"
+
   # Directory waar de gebouwde bestanden staan
   publish = "frontend/dist"
   
