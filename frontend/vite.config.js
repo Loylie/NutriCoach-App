@@ -1,23 +1,17 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
-import tailwindcss from 'tailwindcss'
-import autoprefixer from 'autoprefixer'
 
-// https://vitejs.dev/config/
+// https://vitejs.dev/config/  
 export default defineConfig({
-  plugins: [react( )],
+  plugins: [
+    react(),
+    tailwindcss()
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-    },
-  },
-  css: {
-    postcss: {
-      plugins: [
-        tailwindcss(),
-        autoprefixer(),
-      ],
     },
   },
   server: {
@@ -25,7 +19,7 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:8888/.netlify/functions',
         changeOrigin: true,
-        rewrite: (path ) => path.replace(/^\/api/, ''),
+        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },
