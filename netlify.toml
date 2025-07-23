@@ -1,5 +1,5 @@
 [build]
- command = "cd frontend && npm install --legacy-peer-deps --production=false && npx vite build"
+ command = "cd frontend && npm install --legacy-peer-deps && npx vite build"
   publish = "frontend/dist"
   functions = "netlify/functions"
 
